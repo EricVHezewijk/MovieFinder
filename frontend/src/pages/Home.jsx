@@ -1,7 +1,6 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
-import { searchMovies, getPopularMovies } from "../services/api.js";
 import "../css/Home.css";
 
 function Home() {
@@ -9,6 +8,26 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const BASE_URL = "https://api.themoviedb.org/3";
+  const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const getPopularMovies = async () => {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+    const data = await response.json();
+    return data.results;
+  };
+
+  const searchMovies = async (query) => {
+    const response = await fetch(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+        query
+      )}`
+    );
+    const data = await response.json();
+    return data.results;
+  };
+
 
   useEffect(() => {
     const loadPopularMovies = async () => {

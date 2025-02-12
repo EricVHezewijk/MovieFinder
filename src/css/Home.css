@@ -61,3 +61,11 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+@media (max-width: 720px) {
+  .movies-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
